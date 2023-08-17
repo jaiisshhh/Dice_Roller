@@ -1,0 +1,49 @@
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+final randomizer = Random();
+
+class DiceRoller extends StatefulWidget {
+  const DiceRoller({super.key});
+  @override
+  State<DiceRoller> createState() {
+    return _DiceRollerState();
+  }
+}
+
+class _DiceRollerState extends State<DiceRoller> {
+  var currentDiceRoll = 2;
+
+  void rollDice() {
+    //normally it will give value from 0 to 6 but after adding 1 to the nextInt it will give a value 1-6 whcih we want in a dice
+    setState(() {
+      currentDiceRoll = randomizer.nextInt(6) + 1;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          'assets/images/dice-$currentDiceRoll.png',
+          width: 200,
+        ),
+        TextButton(
+          onPressed: rollDice,
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.only(
+              top: 20,
+            ),
+            foregroundColor: Colors.white,
+            textStyle: const TextStyle(
+              fontSize: 28,
+            ),
+          ),
+          child: const Text('Roll dice'),
+        ),
+      ],
+    );
+  }
+}
